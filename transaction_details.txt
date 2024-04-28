@@ -1,0 +1,21 @@
+Transaction ID: T001
+Sender ID: S001
+Receiver ID: S002
+Amount: 50.00
+Load Sending Date: null
+Loan Expire Date: null
+
+Transaction ID: T001
+Sender ID: S001
+Receiver ID: S002
+Amount: 50.00
+Load Sending Date: 2024-04-23 10:00:00.0
+Loan Expire Date: 2024-05-24 09:00:00.0
+
+Transaction ID: T201
+Sender ID: S001
+Receiver ID: S002
+Amount: 50.00
+Load Sending Date: 2024-04-23 10:00:00.0
+Loan Expire Date: 2024-05-24 09:00:00.0
+

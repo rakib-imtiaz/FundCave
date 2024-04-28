@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="615.0" prefWidth="619.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmlClass.PostForm">
+    <children>
+        <Button fx:id="postBtn" alignment="CENTER" layoutX="448.0" layoutY="14.0" mnemonicParsing="false" onAction="#post" prefHeight="33.0" prefWidth="154.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="post" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="19.0" />
+            </font>
+        </Button>
+        <ImageView fitHeight="126.0" fitWidth="166.0" layoutX="242.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@logo_transparent.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="descriptionField" layoutX="26.0" layoutY="106.0" prefHeight="191.0" prefWidth="573.0" promptText="describe why you need the loan for" style="-fx-background-radius: 5;" />
+        <Label layoutX="26.0" layoutY="77.0" prefHeight="16.0" prefWidth="90.0" text="Description">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="amountField" layoutX="26.0" layoutY="334.0" prefHeight="33.0" prefWidth="126.0" promptText="amount" style="-fx-background-radius: 5;" />
+        <Label layoutX="26.0" layoutY="308.0" prefHeight="16.0" prefWidth="65.0" text="Amount">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+      <TextField fx:id="imageField" layoutX="55.0" layoutY="460.0" prefHeight="33.0" prefWidth="242.0" promptText="image / Uni ID" style="-fx-background-radius: 5;" />
+      <Label layoutX="55.0" layoutY="406.0" prefHeight="44.0" prefWidth="258.0" text="Upload Your Image or University ID Copy" wrapText="true">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Label>
+      <Button fx:id="chooseFileBtn" alignment="CENTER" layoutX="47.0" layoutY="519.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="36.0" prefWidth="118.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="choose file..." textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="gobackBtn" alignment="CENTER" layoutX="194.0" layoutY="519.0" mnemonicParsing="false" onAction="#goback" prefHeight="36.0" prefWidth="118.0" style="-fx-background-color: blue; -fx-background-radius: 10;" text="Go Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="imageViewer" fitHeight="150.0" fitWidth="200.0" layoutX="362.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</AnchorPane>

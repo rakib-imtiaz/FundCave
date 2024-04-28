@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="483.0" prefWidth="430.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmlClass.LoginPageFrame">
+   <children>
+      <Button fx:id="loginBtn" alignment="CENTER" layoutX="140.0" layoutY="262.0" mnemonicParsing="false" onAction="#login" prefHeight="33.0" prefWidth="154.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Button>
+      <Label layoutX="133.0" layoutY="84.0" prefHeight="37.0" prefWidth="85.0" text="Login " textAlignment="CENTER">
+         <font>
+            <Font name="FreeSerif" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="goBackBtn" layoutX="140.0" layoutY="321.0" mnemonicParsing="false" onAction="#goBack" prefHeight="33.0" prefWidth="154.0" style="-fx-background-color: black; -fx-background-radius: 10;" text="Go Back" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Button>
+      <PasswordField fx:id="passwordField" layoutX="96.0" layoutY="196.0" prefHeight="33.0" prefWidth="242.0" promptText="Password" style="-fx-background-radius: 10;" />
+      <TextField fx:id="studentIDField" layoutX="96.0" layoutY="131.0" prefHeight="33.0" prefWidth="242.0" promptText="Student ID" style="-fx-background-radius: 10;" />
+      <Button fx:id="signUpbtn" alignment="CENTER" layoutX="124.0" layoutY="378.0" mnemonicParsing="false" onAction="#signUp" prefHeight="20.0" prefWidth="177.0" style="-fx-background-color: white;" text="Not Registered Yet? Signup!">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Button>
+      <Button fx:id="forgetPasswordBtn" alignment="CENTER" layoutX="147.0" layoutY="408.0" mnemonicParsing="false" onAction="#forgetPassword" prefHeight="33.0" prefWidth="130.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Forget Passsword?" textFill="#da7618">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Button>
+      <Label layoutX="212.0" layoutY="84.0" prefHeight="37.0" prefWidth="85.0" text="Portal" textAlignment="CENTER" textFill="#fc8014">
+         <font>
+            <Font name="FreeSerif" size="32.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="51.0" fitWidth="154.0" layoutX="146.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="483.0" prefWidth="610.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmlClass.ProfilePageFrame">
+   <children>
+      <Button fx:id="logoutBtn" alignment="CENTER" layoutX="240.0" layoutY="433.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Logout" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="-4.0" layoutY="-4.0" prefHeight="75.0" prefWidth="616.0" style="-fx-background-color: #e8ded5;" text="Label" textFill="#e8ded5" />
+      <ImageView fitHeight="119.0" fitWidth="163.0" layoutX="-14.0" layoutY="-17.0" pickOnBounds="true">
+         <image>
+            <Image url="@../logo_transparent.png" />
+         </image>
+         <effect>
+            <Blend />
+         </effect>
+      </ImageView>
+      <Label layoutX="190.0" layoutY="263.0" prefHeight="16.0" prefWidth="53.0" text="Name:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="230.0" layoutY="226.0" prefHeight="16.0" prefWidth="68.0" text="Reviews">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="428.0" layoutY="84.0" prefHeight="16.0" prefWidth="110.0" text="TOTAL COINS:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="availableLoanPostsBtn" alignment="CENTER" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#availableLoanPost" prefHeight="36.0" prefWidth="151.0" style="-fx-background-color: #e8ded5;" text="Others Loan Requests">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="requestForLoanBtn" alignment="CENTER" layoutX="174.0" layoutY="25.0" mnemonicParsing="false" onAction="#requestForLoan" prefHeight="36.0" prefWidth="131.0" style="-fx-background-color: #e8ded5;" text="Post Loan Request">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="givenLoanDetailsBtn" alignment="CENTER" layoutX="310.0" layoutY="25.0" mnemonicParsing="false" onAction="#givenLoanDetails" prefHeight="36.0" prefWidth="138.0" style="-fx-background-color: #e8ded5;" text="Given Loan History">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
+      <Label fx:id="userNameField" layoutX="304.0" layoutY="263.0" prefHeight="16.0" prefWidth="119.0" text="user 1">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="190.0" layoutY="289.0" prefHeight="16.0" prefWidth="53.0" text="ID:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="userIdField" layoutX="304.0" layoutY="289.0" prefHeight="16.0" prefWidth="119.0" text="18123456">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="190.0" layoutY="348.0" prefHeight="16.0" prefWidth="110.0" text="Upload Image">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Circle fill="#7a98b5" layoutX="284.0" layoutY="165.0" radius="48.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="uploadImageBtn" alignment="CENTER" layoutX="298.0" layoutY="346.0" mnemonicParsing="false" onAction="#uploadImage" prefHeight="4.0" prefWidth="110.0" style="-fx-background-color: #e8ded5;" text="Choose Image...">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Button>
+      <Label fx:id="averageReviewField" layoutX="295.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="3.5">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="318.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="/5">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="numberOfCoinField" layoutX="540.0" layoutY="84.0" prefHeight="16.0" prefWidth="39.0" text="100">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="20.0" fitWidth="22.0" layoutX="569.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@coin.png" />
+         </image>
+         <effect>
+            <Blend />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="1.0" fitWidth="1.0" layoutX="182.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../coin.png" />
+         </image>
+         <effect>
+            <Blend />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="16.0" fitWidth="20.0" layoutX="334.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@star.png" />
+         </image>
+         <effect>
+            <Blend />
+         </effect>
+      </ImageView>
+      <Label fx:id="totalReviewField" layoutX="352.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="15" underline="true">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="profilePictureImageField" fitHeight="119.0" fitWidth="163.0" layoutX="203.0" layoutY="106.0" pickOnBounds="true">
+         <image>
+            <Image url="@../logo_transparent.png" />
+         </image>
+         <effect>
+            <Blend />
+         </effect>
+      </ImageView>
+      <Button fx:id="takenLoanDetails" alignment="CENTER" layoutX="444.0" layoutY="25.0" mnemonicParsing="false" onAction="#takenLoanDetailsBtn" prefHeight="36.0" prefWidth="163.0" style="-fx-background-color: #e8ded5;" text=" Taken Loan History">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
