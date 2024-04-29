@@ -135,7 +135,7 @@ public class ProfilePageFrame implements Initializable {
     void availableLoanPost(ActionEvent event) {
         Stage currentStage = (Stage) logoutBtn.getScene().getWindow();
 
-        sceneBuilder.loadNewFrame("/PostLoanRequestPage.fxml", "Loan Requests From Others",currentStage);
+        sceneBuilder.loadNewFrame("/PostedLoanRequestsPage.fxml", "Loan Requests From Others",currentStage);
 
 
     }

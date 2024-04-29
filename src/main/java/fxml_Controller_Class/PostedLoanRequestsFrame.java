@@ -6,10 +6,7 @@ import application.SceneBuildingHelper;
 import application.SessionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -18,13 +15,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import mainClass.Post;
+import mainClass.Student;
 
-import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class PostLoanRequestFrame implements Initializable {
+public class PostedLoanRequestsFrame implements Initializable {
     private final SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
 
 
@@ -66,7 +64,19 @@ public class PostLoanRequestFrame implements Initializable {
 
 
         // Populate the table view with sample data (you can replace this with actual data)
-        tableView.getItems().addAll(DataBaseManager.getPostArrayList());
+        ArrayList<Post> filteredPost=new ArrayList<>();
+
+        for(Post post:DataBaseManager.getPostArrayList())
+        {
+
+            // filtering the post,so that the user logged in cant respond to his own loan request
+            if(!(post.getUserID().contentEquals(fetchAnonymousIDByStudentID(SessionHandler.getSession()))))
+            {
+                filteredPost.add(post);
+            }
+        }
+
+        tableView.getItems().addAll(filteredPost);
 
 
     }
@@ -87,6 +97,8 @@ public class PostLoanRequestFrame implements Initializable {
                 String anonymousUserID = getTableView().getItems().get(getIndex()).getUserID(); // Assuming userID is actually the anonymousUserID
              //   giveLoan(anonymousUserID);
                 SessionHandler.setCurrentLoanRecieversID(anonymousUserID);
+                System.out.println("SET RECIEVER ID: "+anonymousUserID);
+                System.out.println("SET RECIEVER ID From session: "+SessionHandler.getCurrentLoanRecieversID());
 
                 Stage currentStage = (Stage) giveLoanButton.getScene().getWindow();
 
@@ -135,6 +147,24 @@ public class PostLoanRequestFrame implements Initializable {
                 setGraphic(buttons);
             }
         }
+    }
+
+    String fetchAnonymousIDByStudentID(String studentID)
+    {
+        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.fetchDataFromDatabase();
+        DataBaseManager.getStudentArrayList();
+
+        for(Student student:DataBaseManager.getStudentArrayList())
+        {
+            if(student.getStudentID().contentEquals(studentID))
+            {
+                return student.getA_password();
+            }
+        }
+
+        return null;
+
     }
 
 }

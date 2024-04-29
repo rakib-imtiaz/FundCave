@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import mainClass.Student;
 import mainClass.Transaction;
 
 import java.io.FileWriter;
@@ -98,11 +99,31 @@ public class LoanTakenFrame implements Initializable {
         String currentStudentID = SessionHandler.getSession();
         ArrayList<Transaction> filteredTransactionList = new ArrayList<>();
         for (Transaction transaction : DataBaseManager.getTransactionArrayList()) {
-            if (transaction.getReceiverID().equals(currentStudentID)) {
+
+            String convertedStudentID=fetchStudentIDByAnonymousID(transaction.getReceiverID());
+
+            if (convertedStudentID.equals(currentStudentID)) {
                 filteredTransactionList.add(transaction);
             }
         }
         transactionsList.addAll(filteredTransactionList);
+    }
+    String fetchStudentIDByAnonymousID(String id)
+    {
+        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.fetchDataFromDatabase();
+        DataBaseManager.getStudentArrayList();
+
+        for(Student student:DataBaseManager.getStudentArrayList())
+        {
+            if(student.getA_password().contentEquals(id))
+            {
+                return student.getStudentID();
+            }
+        }
+
+        return null;
+
     }
 
     private void writeTransactionDetailsToFile(Transaction transaction) {

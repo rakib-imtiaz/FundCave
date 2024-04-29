@@ -44,7 +44,7 @@ public class PaymentWindow implements Initializable {
     void goBack(ActionEvent event) {
         Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
 
-        sceneBuilder.loadNewFrame("/Homepage.fxml", "Sign Up Page",currentStage);
+        sceneBuilder.loadNewFrame("/Homepage.fxml", "Sign Up Page", currentStage);
 
 
     }
@@ -58,10 +58,12 @@ public class PaymentWindow implements Initializable {
     }
 
     public String recieverID;
+
     // Constructor with parameters
     public PaymentWindow(String recieverID) {
         this.recieverID = recieverID;
     }
+
     public PaymentWindow() {
         // Default constructor
     }
@@ -70,16 +72,17 @@ public class PaymentWindow implements Initializable {
     @FXML
     void makePayment(ActionEvent event) {
         // Get values from text fields
-        String transactionID=generateTransactionID();
-        String senderID= SessionHandler.getSession();
-        String reciverID= this.recieverID;
-        double amount=Double.parseDouble(amountField.getText());
-      //  String loanExpireDate=loanReturnDate.toString(); // datepicker
-        String  fetchedPass=fetchPasswordByStudentID(senderID);
+        String transactionID = generateTransactionID();
+        String senderID = SessionHandler.getSession();
+        String reciverID = SessionHandler.getCurrentLoanRecieversID();
+        System.out.println("ReceverID: "+reciverID);
+        double amount = Double.parseDouble(amountField.getText());
+        //  String loanExpireDate=loanReturnDate.toString(); // datepicker
+        String fetchedPass = fetchPasswordByStudentID(senderID);
         // Get the selected date from the DatePicker
         LocalDate selectedDate = loanReturnDate.getValue();
 
-        String  loanExpireDate = null;
+        String loanExpireDate = null;
 // Check if a date is selected
         if (selectedDate != null) {
             // Format the selected date into a string
@@ -116,12 +119,10 @@ public class PaymentWindow implements Initializable {
         }
 
 
-        if(passwordField.getText().contentEquals(fetchPasswordByStudentID(SessionHandler.getSession())))
-        {
+        if (!(passwordField.getText().contentEquals(fetchedPass))) {
             showAlert("Error", "Invalid Password.");
             return;
         }
-
 
 
         //INSERT INTO Transaction (transactionID, senderID, receiverID, amount, loanSendingDate, loanExpireDate)
@@ -136,13 +137,13 @@ public class PaymentWindow implements Initializable {
 
         if (success) {
             showAlert("Success", "Registration successful.");
-            updateBalances(amount,senderID,reciverID);
+            updateBalances(amount, senderID, reciverID);
             SessionHandler.setCurrentLoanRecieversID(null);
 
 
             Stage currentStage = (Stage) makePaymentBtn.getScene().getWindow();
 
-            sceneBuilder.loadNewFrame("/profilePage.fxml", "ProfilePage",currentStage);
+            sceneBuilder.loadNewFrame("/profilePage.fxml", "ProfilePage", currentStage);
 
         } else {
             showAlert("Error", "Registration failed. Please try again.");
@@ -151,12 +152,10 @@ public class PaymentWindow implements Initializable {
     }
 
     private String fetchPasswordByStudentID(String senderID) {
-        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.makeConnection("root", "root");
         DataBaseManager.fetchDataFromDatabase();
-        for(Student student:DataBaseManager.getStudentArrayList())
-        {
-            if(student.getStudentID().contentEquals(senderID))
-            {
+        for (Student student : DataBaseManager.getStudentArrayList()) {
+            if (student.getStudentID().contentEquals(senderID)) {
                 return student.getPassword();
             }
         }
@@ -170,9 +169,27 @@ public class PaymentWindow implements Initializable {
         // You can use a combination of timestamp and random numbers for generating a unique transaction ID
         return "TRX_" + System.currentTimeMillis(); // Example implementation using current timestamp
     }
+    String fetchStudentIDByAnonymousID(String id)
+    {
+        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.fetchDataFromDatabase();
+        DataBaseManager.getStudentArrayList();
 
+        for(Student student:DataBaseManager.getStudentArrayList())
+        {
+            if(student.getA_password().contentEquals(id))
+            {
+                return student.getStudentID();
+            }
+        }
+
+        return null;
+
+    }
     private void updateBalances(double amount, String senderID, String receiverID) {
         // Implement the logic to update sender's and receiver's balances here
+
+        receiverID=fetchStudentIDByAnonymousID(receiverID);
         try {
             // Deduct the amount from the sender's balance
             double senderBalance = getBalance(senderID);
@@ -195,17 +212,15 @@ public class PaymentWindow implements Initializable {
     }
 
     private double getBalance(String studentID) {
-       DataBaseManager.makeConnection("root","root");
-       DataBaseManager.fetchDataFromDatabase();
-       for(Account account:DataBaseManager.getAccountArraylist())
-       {
-        if(account.getStudentID().contentEquals(studentID))
-        {
-            return account.getBalance();
+        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.fetchDataFromDatabase();
+        for (Account account : DataBaseManager.getAccountArraylist()) {
+            if (account.getStudentID().contentEquals(studentID)) {
+                return account.getBalance();
+            }
         }
-       }
 
-       return -1;
+        return -1;
     }
 
     private void showAlert(String title, String message) {
@@ -215,9 +230,6 @@ public class PaymentWindow implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

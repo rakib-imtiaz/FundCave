@@ -24,8 +24,7 @@ CREATE TABLE Transaction (
     amount DECIMAL(10, 2) NOT NULL,
     loanSendingDate DATETIME NOT NULL,
     loanExpireDate DATETIME,
-    FOREIGN KEY (senderID) REFERENCES Student(studentID),
-    FOREIGN KEY (receiverID) REFERENCES Student(studentID)
+
 );
 CREATE TABLE Post (
     postID VARCHAR(50) PRIMARY KEY,
@@ -56,8 +55,8 @@ VALUES ('S001', 'John Doe', 'johndoe@example.com', 'password123', 'anotherpasswo
 
 INSERT INTO Account (studentID, balance)
 VALUES
-    ('S001', 100.00),  -- Student S001 has an initial balance of 100.00
-    ('S002', 50.00);    -- Student S002 has an initial balance of 50.00
+    ('S001', 1000.00),  -- Student S001 has an initial balance of 100.00
+    ('S002', 1000.00);    -- Student S002 has an initial balance of 50.00
 
 -- Insert data into the Review table
 INSERT INTO Review (studentID, rating)

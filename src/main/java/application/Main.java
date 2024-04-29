@@ -21,8 +21,8 @@ public class Main extends Application {
 		DataBaseManager.makeConnection("root", "root");
 		DataBaseManager.fetchDataFromDatabase();
 
-		Parent root = FXMLLoader.load(getClass().getResource("/profilePage.fxml"));
-		SessionHandler.setSession("S001");
+		Parent root = FXMLLoader.load(getClass().getResource("/Homepage.fxml"));
+		//SessionHandler.setSession("S001");
 
 		Scene scene = new Scene(root);
 
