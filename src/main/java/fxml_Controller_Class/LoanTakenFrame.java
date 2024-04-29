@@ -98,20 +98,36 @@ public class LoanTakenFrame implements Initializable {
 
         // Fetch transactions from the database
       //  DataBaseManager.getTransactionArrayList();
-        String currentStudentID = SessionHandler.getSession();
-       // ArrayList<Transaction> filteredTransactionList = new ArrayList<>();
-        List<Transaction> transactionList = DataBaseManager.getTransactionArrayList();
 
 // Filter transactions based on the current student ID
-        List<Transaction> filteredTransactionList = transactionList.stream()
-                .filter(transaction -> {
-                    String convertedStudentID = fetchStudentIDByAnonymousID(transaction.getReceiverID());
-                    return convertedStudentID != null && convertedStudentID.equals(currentStudentID);
-                })
-                .collect(Collectors.toList());
+//        ---------------------------------------------------------------------------------------------
+        String currentStudentID = SessionHandler.getSession();
+        ArrayList<Transaction> filteredTransactionList = new ArrayList<>();
+        ArrayList<Transaction> transactionListModifiedAllAnonyUserIDToStudentID =new ArrayList<>();
+        for (Transaction transaction:DataBaseManager.getTransactionArrayList())
+        {
+            transaction.setReceiverID(fetchStudentIDByAnonymousID(transaction.getReceiverID()));
+            transactionListModifiedAllAnonyUserIDToStudentID.add(transaction);
+        }
+        System.out.println("MODIFED");
+        System.out.println(transactionListModifiedAllAnonyUserIDToStudentID);
+
+
+
+        for (Transaction transaction : DataBaseManager.getTransactionArrayList()) {
+
+            String convertedStudentID=fetchStudentIDByAnonymousID(transaction.getReceiverID());
+
+            if (convertedStudentID.equals(currentStudentID)) {
+                filteredTransactionList.add(transaction);
+            }
+        }
 
         transactionsList.addAll(filteredTransactionList);
     }
+
+
+//    ---------------------------------------------------------------------------------------
     String fetchStudentIDByAnonymousID(String id)
     {
         DataBaseManager.makeConnection("root","root");

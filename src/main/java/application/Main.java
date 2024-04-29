@@ -25,7 +25,7 @@ public class Main extends Application implements Initializable {
 
 		DataBaseManager.makeConnection("root", "root");
 		DataBaseManager.fetchDataFromDatabase();
-		SessionHandler.setSession("1812621642");
+		SessionHandler.setSession("S001");
 		//System.out.println(SessionHandler.getSession());
 		//System.out.println(SessionHandler.getStudentID());
 
@@ -41,7 +41,7 @@ public class Main extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		SessionHandler.setSession("1812621642");
+		SessionHandler.setSession("S001");
 
 
 	}
