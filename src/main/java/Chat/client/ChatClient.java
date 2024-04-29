@@ -11,12 +11,12 @@ import java.net.*;
 
 public class ChatClient {
 
-    private DatagramSocket socket;
-    private InetAddress address;
-    private String identifier = "Jeff";
-    private int SERVER_PORT = 8000;
-    private TextArea messageArea = new TextArea();
-    private TextField inputBox = new TextField();
+    private final DatagramSocket socket;
+    private final InetAddress address;
+    private final String identifier = "Jeff";
+    private final int SERVER_PORT = 8000;
+    private final TextArea messageArea = new TextArea();
+    private final TextField inputBox = new TextField();
 
     public ChatClient() throws IOException {
         socket = new DatagramSocket();

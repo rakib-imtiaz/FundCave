@@ -19,3 +19,10 @@ Amount: 50.00
 Load Sending Date: 2024-04-23 10:00:00.0
 Loan Expire Date: 2024-05-24 09:00:00.0
 
+Transaction ID: TRX_1714389900918
+Sender ID: S002
+Receiver ID: anotherpassword
+Amount: 100.00
+Load Sending Date: 2024-04-29 17:25:00.0
+Loan Expire Date: 2024-04-13 00:00:00.0
+

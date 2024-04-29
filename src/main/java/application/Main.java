@@ -5,10 +5,15 @@ import Chat.client.ChatClient;
 import Chat.server.ChatServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-public class Main extends Application {
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Main extends Application implements Initializable {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -20,24 +25,24 @@ public class Main extends Application {
 
 		DataBaseManager.makeConnection("root", "root");
 		DataBaseManager.fetchDataFromDatabase();
+		SessionHandler.setSession("1812621642");
+		//System.out.println(SessionHandler.getSession());
+		//System.out.println(SessionHandler.getStudentID());
 
-		Parent root = FXMLLoader.load(getClass().getResource("/Homepage.fxml"));
-		//SessionHandler.setSession("S001");
+		Parent root = FXMLLoader.load(getClass().getResource("/profilePage.fxml"));
 
 		Scene scene = new Scene(root);
 
 		primaryStage.setTitle("HomePage");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-//
 
-//		ChatServer server = new ChatServer();
-//		server.startChatServer();
-//
-//		ChatClient chatClient = new ChatClient();
-//		chatClient.startChatClient();
+	}
 
-//		ChatApplication app = new ChatApplication();
-//		app.start(primaryStage);
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		SessionHandler.setSession("1812621642");
+
+
 	}
 }

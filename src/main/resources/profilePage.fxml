@@ -9,9 +9,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="483.0" prefWidth="610.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml_Controller_Class.ProfilePageFrame">
+<AnchorPane prefHeight="599.0" prefWidth="612.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml_Controller_Class.ProfilePageFrame">
    <children>
-      <Button fx:id="logoutBtn" alignment="CENTER" layoutX="240.0" layoutY="433.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Logout" textFill="WHITE">
+      <Button fx:id="logoutBtn" alignment="CENTER" layoutX="229.0" layoutY="542.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: red; -fx-background-radius: 10;" text="Logout" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -30,12 +30,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="230.0" layoutY="226.0" prefHeight="16.0" prefWidth="68.0" text="Reviews">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <Label layoutX="428.0" layoutY="84.0" prefHeight="16.0" prefWidth="110.0" text="TOTAL COINS:">
+      <Label layoutX="25.0" layoutY="87.0" prefHeight="16.0" prefWidth="110.0" text="TOTAL COINS:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -81,22 +76,12 @@
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Label fx:id="averageReviewField" layoutX="295.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="3.5">
+      <Label fx:id="numberOfCoinField" layoutX="137.0" layoutY="87.0" prefHeight="16.0" prefWidth="61.0" text="100">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="318.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="/5">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <Label fx:id="numberOfCoinField" layoutX="540.0" layoutY="84.0" prefHeight="16.0" prefWidth="39.0" text="100">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="20.0" fitWidth="22.0" layoutX="569.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="20.0" fitWidth="22.0" layoutX="189.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@coin.png" />
          </image>
@@ -112,7 +97,7 @@
             <Blend />
          </effect>
       </ImageView>
-      <ImageView fitHeight="16.0" fitWidth="20.0" layoutX="334.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="16.0" fitWidth="20.0" layoutX="356.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@star.png" />
          </image>
@@ -120,12 +105,12 @@
             <Blend />
          </effect>
       </ImageView>
-      <Label fx:id="totalReviewField" layoutX="364.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="15" underline="true">
+      <Label fx:id="totalGivenField" layoutX="374.0" layoutY="149.0" prefHeight="16.0" prefWidth="28.0" text="15" underline="true">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <ImageView fx:id="profilePictureImageField" fitHeight="119.0" fitWidth="163.0" layoutX="203.0" layoutY="106.0" pickOnBounds="true">
+      <ImageView fx:id="profilePictureImageField" fitHeight="119.0" fitWidth="110.0" layoutX="231.0" layoutY="106.0" pickOnBounds="true">
          <image>
             <Image url="@../logo_transparent.png" />
          </image>
@@ -138,15 +123,38 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
-      <Label fx:id="balanceField" layoutX="540.0" layoutY="109.0" prefHeight="16.0" prefWidth="53.0" text="0">
+      <Label fx:id="balanceField" layoutX="137.0" layoutY="112.0" prefHeight="16.0" prefWidth="53.0" text="0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="428.0" layoutY="109.0" prefHeight="16.0" prefWidth="78.0" text="Balance:">
+      <Label layoutX="25.0" layoutY="112.0" prefHeight="16.0" prefWidth="78.0" text="Balance:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
+      <ImageView fitHeight="16.0" fitWidth="20.0" layoutX="356.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@star.png" />
+         </image>
+         <effect>
+            <Blend />
+         </effect>
+      </ImageView>
+      <Label fx:id="totalTakenField" layoutX="374.0" layoutY="166.0" prefHeight="16.0" prefWidth="28.0" text="15" underline="true">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="redemCoinBtn" alignment="CENTER" layoutX="238.0" layoutY="468.0" mnemonicParsing="false" onAction="#redemCoin" prefHeight="36.0" prefWidth="96.0" style="-fx-background-color: green; -fx-background-radius: 5;" text="Redeem Coin" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
+      <Button fx:id="returnMoneyBtn" alignment="CENTER" layoutX="199.0" layoutY="415.0" mnemonicParsing="false" onAction="#returnMoney" prefHeight="36.0" prefWidth="174.0" style="-fx-background-color: blue; -fx-background-radius: 5;" text="Return Borrowed Money" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

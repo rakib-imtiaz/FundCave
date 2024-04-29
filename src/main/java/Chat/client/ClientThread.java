@@ -8,9 +8,9 @@ import java.net.DatagramSocket;
 
 public class ClientThread extends Thread {
 
-    private DatagramSocket socket;
-    private byte[] incoming = new byte[1024]; // Increased buffer size for larger messages
-    private TextArea textArea;
+    private final DatagramSocket socket;
+    private final byte[] incoming = new byte[1024]; // Increased buffer size for larger messages
+    private final TextArea textArea;
 
     public ClientThread(DatagramSocket socket, TextArea textArea) {
         this.socket = socket;

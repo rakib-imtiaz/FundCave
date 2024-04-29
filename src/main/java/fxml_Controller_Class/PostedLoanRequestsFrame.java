@@ -15,10 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import mainClass.Post;
-import mainClass.Student;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -42,12 +40,11 @@ public class PostedLoanRequestsFrame implements Initializable {
     public TableColumn<Post, Date> timeColumn;
     @FXML
     private Button goBackBtn;
-
     @FXML
     void goBack(ActionEvent event) {
         Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
 
-        sceneBuilder.loadNewFrame("/profilePage.fxml", "Profile Page", currentStage);
+        sceneBuilder.loadNewFrame("/profilePage.fxml", "Profile Page",currentStage);
 
     }
 
@@ -59,24 +56,12 @@ public class PostedLoanRequestsFrame implements Initializable {
 
         // Set up the Communicate column with a button to start a chat
         communicate.setCellFactory(param -> new ButtonCell());
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection("root","root");
         DataBaseManager.fetchDataFromDatabase();
 
 
         // Populate the table view with sample data (you can replace this with actual data)
-        ArrayList<Post> filteredPost=new ArrayList<>();
-
-        for(Post post:DataBaseManager.getPostArrayList())
-        {
-
-            // filtering the post,so that the user logged in cant respond to his own loan request
-            if(!(post.getUserID().contentEquals(fetchAnonymousIDByStudentID(SessionHandler.getSession()))))
-            {
-                filteredPost.add(post);
-            }
-        }
-
-        tableView.getItems().addAll(filteredPost);
+        tableView.getItems().addAll(DataBaseManager.getPostArrayList());
 
 
     }
@@ -95,15 +80,7 @@ public class PostedLoanRequestsFrame implements Initializable {
 
             giveLoanButton.setOnAction(event -> {
                 String anonymousUserID = getTableView().getItems().get(getIndex()).getUserID(); // Assuming userID is actually the anonymousUserID
-             //   giveLoan(anonymousUserID);
-                SessionHandler.setCurrentLoanRecieversID(anonymousUserID);
-                System.out.println("SET RECIEVER ID: "+anonymousUserID);
-                System.out.println("SET RECIEVER ID From session: "+SessionHandler.getCurrentLoanRecieversID());
-
-                Stage currentStage = (Stage) giveLoanButton.getScene().getWindow();
-
-                sceneBuilder.loadNewFrame("/PaymentWindow.fxml", "Payemnt Window",currentStage);
-
+                giveLoan(anonymousUserID);
                 System.out.println("Give Loan to anonymous user ID: " + anonymousUserID);
             });
         }
@@ -114,28 +91,15 @@ public class PostedLoanRequestsFrame implements Initializable {
             chatApp.startChatWithUserID(userID); // Assuming you have a method in ChatApplication to start a chat with a specific user ID
         }
 
-//        private void giveLoan(String anonymousUserID) {
-//
-//
-//                SessionHandler.setCurrentLoanRecieversID(anonymousUserID);
-//
-//                Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
-//
-//                sceneBuilder.loadNewFrame("/PaymentWindow.fxml", "Payemnt Window",currentStage);
-//
-//
-//
-//        }
+        private void giveLoan(String anonymousUserID) {
+            SessionHandler.setCurrentLoanRecieversID(anonymousUserID);
+             Stage currentStage = (Stage) giveLoanButton.getScene().getWindow();
 
-
-        private void openPaymentGateway() {
-            // Call the function to open PaymentGateway.fxml
-            // Implement this function to open the PaymentGateway.fxml frame
-            // For now, let's just print a message
-            System.out.println("Opening Payment Gateway...");
-            // You can use SceneBuildingHelper to load the PaymentGateway.fxml frame
-            // sceneBuilder.loadNewFrame("/PaymentGateway.fxml", "Payment Gateway", primaryStage);
+               sceneBuilder.loadNewFrame("/PaymentWindow.fxml", "Payemnt Window",currentStage);
+            System.out.println("Give Loan to anonymous user ID: " + anonymousUserID);
         }
+
+
 
         @Override
         protected void updateItem(String item, boolean empty) {
@@ -147,24 +111,6 @@ public class PostedLoanRequestsFrame implements Initializable {
                 setGraphic(buttons);
             }
         }
-    }
-
-    String fetchAnonymousIDByStudentID(String studentID)
-    {
-        DataBaseManager.makeConnection("root","root");
-        DataBaseManager.fetchDataFromDatabase();
-        DataBaseManager.getStudentArrayList();
-
-        for(Student student:DataBaseManager.getStudentArrayList())
-        {
-            if(student.getStudentID().contentEquals(studentID))
-            {
-                return student.getA_password();
-            }
-        }
-
-        return null;
-
     }
 
 }

@@ -44,7 +44,7 @@ public class PaymentWindow implements Initializable {
     void goBack(ActionEvent event) {
         Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
 
-        sceneBuilder.loadNewFrame("/Homepage.fxml", "Sign Up Page", currentStage);
+        sceneBuilder.loadNewFrame("/profilePage.fxml", "Profile Page", currentStage);
 
 
     }

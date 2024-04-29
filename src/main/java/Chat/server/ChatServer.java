@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class ChatServer {
 
-    private static byte[] incoming = new byte[256];
+    private static final byte[] incoming = new byte[256];
     private static final int PORT = 8000;
 
-    private static DatagramSocket socket;
+    private static final DatagramSocket socket;
 
     static {
         try {
@@ -19,7 +19,7 @@ public class ChatServer {
         }
     }
 
-    private static ArrayList<Integer> users = new ArrayList<>();
+    private static final ArrayList<Integer> users = new ArrayList<>();
 
     private static final InetAddress address;
 

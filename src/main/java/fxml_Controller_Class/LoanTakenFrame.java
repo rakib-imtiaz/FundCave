@@ -18,7 +18,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class LoanTakenFrame implements Initializable {
 
@@ -95,24 +97,26 @@ public class LoanTakenFrame implements Initializable {
         tableView.setItems(transactionsList);
 
         // Fetch transactions from the database
-        DataBaseManager.getTransactionArrayList();
+      //  DataBaseManager.getTransactionArrayList();
         String currentStudentID = SessionHandler.getSession();
-        ArrayList<Transaction> filteredTransactionList = new ArrayList<>();
-        for (Transaction transaction : DataBaseManager.getTransactionArrayList()) {
+       // ArrayList<Transaction> filteredTransactionList = new ArrayList<>();
+        List<Transaction> transactionList = DataBaseManager.getTransactionArrayList();
 
-            String convertedStudentID=fetchStudentIDByAnonymousID(transaction.getReceiverID());
+// Filter transactions based on the current student ID
+        List<Transaction> filteredTransactionList = transactionList.stream()
+                .filter(transaction -> {
+                    String convertedStudentID = fetchStudentIDByAnonymousID(transaction.getReceiverID());
+                    return convertedStudentID != null && convertedStudentID.equals(currentStudentID);
+                })
+                .collect(Collectors.toList());
 
-            if (convertedStudentID.equals(currentStudentID)) {
-                filteredTransactionList.add(transaction);
-            }
-        }
         transactionsList.addAll(filteredTransactionList);
     }
     String fetchStudentIDByAnonymousID(String id)
     {
         DataBaseManager.makeConnection("root","root");
         DataBaseManager.fetchDataFromDatabase();
-        DataBaseManager.getStudentArrayList();
+       // DataBaseManager.getStudentArrayList();
 
         for(Student student:DataBaseManager.getStudentArrayList())
         {
