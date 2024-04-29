@@ -1,4 +1,4 @@
-package fxmlClass;
+package fxml_Controller_Class;
 
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import mainClass.Account;
 import mainClass.Coin;
 import mainClass.Review;
 import mainClass.Student;
@@ -26,7 +27,8 @@ public class ProfilePageFrame implements Initializable {
 
     @FXML
     private Button availableLoanPostsBtn;
-
+    @FXML
+    public Label balanceField;
     @FXML
     private Label averageReviewField;
 
@@ -200,12 +202,16 @@ public class ProfilePageFrame implements Initializable {
 
 
         // Make database connection and fetch data
+        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.fetchDataFromDatabase();
 
         // Get the current session's student ID
         String studentID = SessionHandler.getSession();
 
         // Find the student object with the current session ID
         Student student = findStudentByID(studentID);
+        System.out.println(student);
+        Account account=findAccountByStudentID(studentID);
 
         // Initialize UI elements with student data
         if (student != null) {
@@ -213,15 +219,39 @@ public class ProfilePageFrame implements Initializable {
             userIdField.setText(student.getStudentID() + "");
             userNameField.setText(student.getName() + "");
             numberOfCoinField.setText(findCoinNumberByStudentID(studentID) + "");
+            balanceField.setText(account.getBalance()+"");
+            System.out.println(balanceField.getText());
+            System.out.println(account.getBalance());
+            System.out.println(account.getAccountID());
 
             Review tempReviewObject=findReviewByID(studentID);
-            int totalreview=tempReviewObject.getReview().size();
 
-            averageReviewField.setText(calculateAverageReview(tempReviewObject)+"");
-            totalReviewField.setText(totalreview+"");
+            if(tempReviewObject==null){
+                averageReviewField.setText("0");
+                totalReviewField.setText("0");
+
+            }
+            else{
+                int totalreview=tempReviewObject.getReview().size();
+
+
+                averageReviewField.setText(calculateAverageReview(tempReviewObject)+"");
+                totalReviewField.setText(totalreview+"");
+            }
+
 
 
         }
 
+    }
+
+    private Account findAccountByStudentID(String studentID) {
+        // Find the student object with the given ID in the studentArrayList
+        for (Account account : DataBaseManager.getAccountArraylist()) {
+            if (account.getStudentID().equals(studentID)) {
+                return account;
+            }
+        }
+        return null; // Return null if student with the given ID is not found
     }
 }

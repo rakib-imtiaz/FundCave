@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="483.0" prefWidth="610.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmlClass.ProfilePageFrame">
+<AnchorPane prefHeight="483.0" prefWidth="610.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml_Controller_Class.ProfilePageFrame">
    <children>
       <Button fx:id="logoutBtn" alignment="CENTER" layoutX="240.0" layoutY="433.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Logout" textFill="WHITE">
          <font>
@@ -120,7 +120,7 @@
             <Blend />
          </effect>
       </ImageView>
-      <Label fx:id="totalReviewField" layoutX="352.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="15" underline="true">
+      <Label fx:id="totalReviewField" layoutX="364.0" layoutY="227.0" prefHeight="16.0" prefWidth="28.0" text="15" underline="true">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -138,5 +138,15 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
+      <Label fx:id="balanceField" layoutX="540.0" layoutY="109.0" prefHeight="16.0" prefWidth="53.0" text="0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="428.0" layoutY="109.0" prefHeight="16.0" prefWidth="78.0" text="Balance:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

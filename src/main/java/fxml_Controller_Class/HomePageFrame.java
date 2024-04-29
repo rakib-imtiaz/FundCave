@@ -1,4 +1,4 @@
-package fxmlClass;
+package fxml_Controller_Class;
 
 import application.SceneBuildingHelper;
 import javafx.event.ActionEvent;

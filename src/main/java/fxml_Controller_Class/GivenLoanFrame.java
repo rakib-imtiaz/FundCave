@@ -1,4 +1,4 @@
-package fxmlClass;
+package fxml_Controller_Class;
 
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
@@ -19,12 +19,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class LoanTakenFrame implements Initializable {
+public class GivenLoanFrame implements Initializable {
 
     private final SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
 
     @FXML
     private Button goBackBtn;
+
     @FXML
     void goBack(ActionEvent event) {
         Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
@@ -33,18 +34,19 @@ public class LoanTakenFrame implements Initializable {
 
 
     }
+
     @FXML
-    public TableColumn<Transaction, String> idColumn;
+    private TableColumn<Transaction, String> idColumn;
     @FXML
-    public TableColumn<Transaction, String> amountColumn;
+    private TableColumn<Transaction, String> amountColumn;
     @FXML
-    public TableColumn<Transaction, String> startDateColumn;
+    private TableColumn<Transaction, String> startDateColumn;
     @FXML
-    public TableColumn<Transaction, String> endDateColumn;
+    private TableColumn<Transaction, String> endDateColumn;
     @FXML
-    public TableColumn<Transaction, String> downloadPdfColumn;
+    private TableColumn<Transaction, String> downloadPdfColumn;
     @FXML
-    public TableView<Transaction> tableView;
+    private TableView<Transaction> tableView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -95,10 +97,10 @@ public class LoanTakenFrame implements Initializable {
 
         // Fetch transactions from the database
         DataBaseManager.getTransactionArrayList();
-        String currentStudentID = "S002";
+        String currentStudentID = SessionHandler.getSession();
         ArrayList<Transaction> filteredTransactionList = new ArrayList<>();
         for (Transaction transaction : DataBaseManager.getTransactionArrayList()) {
-            if (transaction.getReceiverID().equals(currentStudentID)) {
+            if (transaction.getSenderID().equals(currentStudentID)) {
                 filteredTransactionList.add(transaction);
             }
         }

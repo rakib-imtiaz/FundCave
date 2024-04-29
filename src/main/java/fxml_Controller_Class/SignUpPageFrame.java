@@ -1,4 +1,4 @@
-package fxmlClass;
+package fxml_Controller_Class;
 
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
@@ -35,12 +35,20 @@ public class SignUpPageFrame  implements Initializable {
 
 	@FXML
 	private TextField universityEmailField;
-
+	@FXML
+	private Button goBackBtn;
 	private final SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
 
 
 
+	@FXML
+	void goBack(ActionEvent event) {
+		Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
 
+		sceneBuilder.loadNewFrame("/Homepage.fxml", "Sign Up Page",currentStage);
+
+
+	}
 	@FXML
 	void register(ActionEvent event) {
 		// Get values from text fields
@@ -61,13 +69,15 @@ public class SignUpPageFrame  implements Initializable {
 		DataBaseManager.makeConnection("root", "root");
 		String insertQuery = "INSERT INTO Student (studentID, name, email, password, a_password, address) " +
 				"VALUES ('" + studentID + "','" + name + "','" + email + "','" + password + "','" + aPassword + "','" + address + "')";
+String insertQuery2 = "INSERT INTO Account (studentID, balance) " +
+				"VALUES ('" + studentID + "','" + 1000+ "')";
 
 		System.out.println(insertQuery);
         boolean success = DataBaseManager.executeUpdate(insertQuery);
-//        boolean success = DataBaseManager.executeUpdate(insertQuery, studentID, name, email, password, aPassword, address);
+        boolean success2 = DataBaseManager.executeUpdate(insertQuery2);
 		DataBaseManager.closeConnection();
 
-		if (success) {
+		if (success && success2) {
 			showAlert("Success", "Registration successful.");
 			clearFields();
 

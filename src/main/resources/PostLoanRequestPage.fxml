@@ -6,16 +6,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmlClass.PostLoanRequestFrame">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml_Controller_Class.PostLoanRequestFrame">
     <children>
         <ScrollPane fitToWidth="true">
             <content>
-                <TableView fx:id="tableView" prefHeight="450.0" prefWidth="807.0">
+                <TableView fx:id="tableView" prefHeight="450.0" prefWidth="873.0">
                     <columns>
                         <TableColumn fx:id="a_id_column" prefWidth="155.0" text="anonymous_ID" />
-                        <TableColumn fx:id="timeColumn" prefWidth="147.0" text="time" />
-                        <TableColumn fx:id="postColumn" prefWidth="367.0" text="post" />
-                        <TableColumn fx:id="communicate" minWidth="0.0" prefWidth="137.0" text="Communicate" />
+                        <TableColumn fx:id="timeColumn" prefWidth="178.0" text="time" />
+                        <TableColumn fx:id="postColumn" prefWidth="336.0" text="post" />
+                        <TableColumn fx:id="communicate" minWidth="0.0" prefWidth="203.0" text="Communicate" />
                     </columns>
                 </TableView>
             </content>

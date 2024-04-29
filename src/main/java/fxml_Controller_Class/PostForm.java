@@ -1,4 +1,4 @@
-package fxmlClass;
+package fxml_Controller_Class;
 
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
@@ -114,7 +114,7 @@ public class PostForm implements Initializable {
         String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 
         String insertQuery = "INSERT INTO Post (postID, userID, content, time) " +
-                "VALUES ('" + postID + "','" + userId + "','" + descriptionField.getText() + "','" + formattedDate + "')";
+                "VALUES ('" + postID + "','" + userId + "','" + descriptionField.getText()+"\nAMOUNT:"+amountField.getText() + "','" + formattedDate + "')";
 
         System.out.println(insertQuery);
         boolean success = DataBaseManager.executeUpdate(insertQuery);

@@ -1,4 +1,4 @@
-package fxmlClass;
+package fxml_Controller_Class;
 
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
@@ -19,13 +19,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class GivenLoanFrame implements Initializable {
+public class LoanTakenFrame implements Initializable {
 
     private final SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
 
     @FXML
     private Button goBackBtn;
-
     @FXML
     void goBack(ActionEvent event) {
         Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
@@ -34,19 +33,18 @@ public class GivenLoanFrame implements Initializable {
 
 
     }
-
     @FXML
-    private TableColumn<Transaction, String> idColumn;
+    public TableColumn<Transaction, String> idColumn;
     @FXML
-    private TableColumn<Transaction, String> amountColumn;
+    public TableColumn<Transaction, String> amountColumn;
     @FXML
-    private TableColumn<Transaction, String> startDateColumn;
+    public TableColumn<Transaction, String> startDateColumn;
     @FXML
-    private TableColumn<Transaction, String> endDateColumn;
+    public TableColumn<Transaction, String> endDateColumn;
     @FXML
-    private TableColumn<Transaction, String> downloadPdfColumn;
+    public TableColumn<Transaction, String> downloadPdfColumn;
     @FXML
-    private TableView<Transaction> tableView;
+    public TableView<Transaction> tableView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -100,7 +98,7 @@ public class GivenLoanFrame implements Initializable {
         String currentStudentID = SessionHandler.getSession();
         ArrayList<Transaction> filteredTransactionList = new ArrayList<>();
         for (Transaction transaction : DataBaseManager.getTransactionArrayList()) {
-            if (transaction.getSenderID().equals(currentStudentID)) {
+            if (transaction.getReceiverID().equals(currentStudentID)) {
                 filteredTransactionList.add(transaction);
             }
         }
