@@ -56,7 +56,7 @@ public class PostedLoanRequestsFrame implements Initializable {
 
         // Set up the Communicate column with a button to start a chat
         communicate.setCellFactory(param -> new ButtonCell());
-        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
 
 

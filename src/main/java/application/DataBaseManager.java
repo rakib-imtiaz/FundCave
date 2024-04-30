@@ -1,6 +1,7 @@
 package application;
 
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import mainClass.*;
 
 import java.sql.*;
@@ -19,6 +20,7 @@ public class DataBaseManager {
     private static final ArrayList<Coin> coinArrayList = new ArrayList<>();
     private static final ArrayList<Transaction> transactionArrayList = new ArrayList<>();
     private static final ArrayList<Account> accountArrayList = new ArrayList<>();
+    private static final ArrayList<CoinHistory> coinhistoryArrayList = new ArrayList<>();
 
     public static ArrayList<Student> getStudentArrayList() {
         return studentArrayList;
@@ -44,6 +46,10 @@ public class DataBaseManager {
         return accountArrayList;
     }
 
+    public static ArrayList<CoinHistory> getCoinHistoryArraylist() {
+        return coinhistoryArrayList;
+    }
+
 
     public static void fetchDataFromDatabase() {
         // Fetch data from the 'Student' table
@@ -63,6 +69,10 @@ public class DataBaseManager {
         String reviewQuery = "SELECT * FROM Review";
         ResultSet reviewResult = executeQuery(reviewQuery);
         populateReviewArrayList(reviewResult);
+        // Fetch data from the 'Review' table
+        String coinHistoryQuery = "SELECT * FROM CoinHistory";
+        ResultSet cointHistoryResult = executeQuery(coinHistoryQuery);
+        populateCoinHistoryArrayList(cointHistoryResult);
 
         // Fetch data from the 'Coin' table
         String coinQuery = "SELECT * FROM Coin";
@@ -73,6 +83,28 @@ public class DataBaseManager {
         String transactionQuery = "SELECT * FROM Transaction";
         ResultSet transactionResult = executeQuery(transactionQuery);
         populateTransactionArrayList(transactionResult);
+    }
+
+    private static void populateCoinHistoryArrayList(ResultSet resultSet) {
+        coinhistoryArrayList.clear(); // Clear the existing studentArrayList before populating
+
+        try {
+            while (resultSet.next()) {
+                // Create a new Student object from the result set
+                CoinHistory coinHistory = new CoinHistory();
+                // Populate student attributes from the result set
+                coinHistory.setStudentId(resultSet.getString("studentID"));
+                coinHistory.setGivenLoan(resultSet.getInt("givenLoan"));
+                coinHistory.setTakenLoan(resultSet.getInt("takenLoan"));
+
+
+                // Add the student to the studentArrayList
+                coinhistoryArrayList.add(coinHistory);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error populating Student ArrayList: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private static void populateStudentArrayList(ResultSet resultSet) {
@@ -88,8 +120,8 @@ public class DataBaseManager {
                 student.setEmail(resultSet.getString("email"));
                 student.setPassword(resultSet.getString("password"));
                 student.setA_password(resultSet.getString("a_password"));
-                // Set profile picture if needed
-                // student.setProfile_picture(resultSet.getBlob("profile_picture"));
+                student.setProfile_picture(resultSet.getString("profile_picture"));
+
                 student.setAddress(resultSet.getString("address"));
 
                 // Add the student to the studentArrayList
@@ -343,9 +375,9 @@ public class DataBaseManager {
         }
     }
 
-    public static boolean makeConnection(String userName, String password) {
-        USERNAME = userName;
-        PASSWORD = password;
+    public static boolean makeConnection() {
+        USERNAME = "root";
+        PASSWORD = "root";
         boolean isConnected = false;
 
         try {

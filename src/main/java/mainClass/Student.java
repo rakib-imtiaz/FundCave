@@ -9,10 +9,10 @@ public class Student {
 	private String password;
 	private String studentID;
 	private String a_password;
-	private Image profile_picture;
+	private String profile_picture;
 	private String address;
 
-	public Student(String name, String email, String password, String studentID, String a_password, Image profile_picture, String address) {
+	public Student(String name, String email, String password, String studentID, String a_password, String profile_picture, String address) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -67,11 +67,11 @@ public class Student {
 		this.a_password = a_password;
 	}
 
-	public Image getProfile_picture() {
+	public String getProfile_picture() {
 		return profile_picture;
 	}
 
-	public void setProfile_picture(Image profile_picture) {
+	public void setProfile_picture(String profile_picture) {
 		this.profile_picture = profile_picture;
 	}
 

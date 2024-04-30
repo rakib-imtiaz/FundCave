@@ -1,8 +1,5 @@
 package application;
 
-import Chat.ChatApplication;
-import Chat.client.ChatClient;
-import Chat.server.ChatServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,12 +20,13 @@ public class Main extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception {
 
 
-		DataBaseManager.makeConnection("root", "root");
+		DataBaseManager.makeConnection();
 		DataBaseManager.fetchDataFromDatabase();
 		SessionHandler.setSession("S001");
 		//System.out.println(SessionHandler.getSession());
 		//System.out.println(SessionHandler.getStudentID());
 
+//		Parent root = FXMLLoader.load(getClass().getResource("/Homepage.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("/profilePage.fxml"));
 
 		Scene scene = new Scene(root);

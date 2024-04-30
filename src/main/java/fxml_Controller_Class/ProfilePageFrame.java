@@ -3,45 +3,36 @@ package fxml_Controller_Class;
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
 import application.SessionHandler;
-import com.mysql.cj.protocol.a.TracingPacketReader;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import mainClass.*;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
 public class ProfilePageFrame implements Initializable {
     private final SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
-    @FXML
-    private Button availableLoanPostsBtn;
+    public Button cashInBkashBtn;
 
     @FXML
     private Label balanceField;
-
-    @FXML
-    private Button givenLoanDetailsBtn;
 
     @FXML
     private Button logoutBtn;
@@ -204,8 +195,54 @@ public class ProfilePageFrame implements Initializable {
             //imageField.setText(filePath); // Assuming imageField is the TextField for displaying the file path
             Image image = new Image(selectedFile.toURI().toString());
             profilePictureImageField.setImage(image);
+            updateProfilePicture(image);
         }
 
+    }
+
+    private void updateProfilePicture(Image image) {
+        String studentID = SessionHandler.getSession();
+
+        // Get the file path of the image
+        String imagePath = saveImageToFile(image);
+
+        // Prepare the SQL query to update the profile picture file path
+        String query = "UPDATE Student SET profile_picture = '" + imagePath + "' WHERE studentID = '" + studentID + "'";
+
+        // Make database connection
+        DataBaseManager.makeConnection();
+
+        // Execute the update query with the image file path and student ID as parameters
+        boolean rowsAffected = DataBaseManager.executeUpdate(query);
+
+        if (rowsAffected== true) {
+            System.out.println("Profile picture updated successfully for student: " + studentID);
+        } else {
+            System.out.println("No rows were updated. Student ID might be incorrect.");
+        }
+    }
+
+    // Utility method to save the image to a file and return the file path
+    private String saveImageToFile(Image image) {
+        String studentID = SessionHandler.getSession();
+        String filePath = "profile_pictures/" + studentID + ".png"; // Example: profile_pictures/S001.png
+
+        // Create the directory if it doesn't exist
+        File directory = new File("profile_pictures");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        // Convert and save the image to the file
+        File file = new File(filePath);
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            System.err.println("Error saving image to file: " + e.getMessage());
+            return null;
+        }
+
+        return filePath;
     }
 
 
@@ -214,11 +251,12 @@ public class ProfilePageFrame implements Initializable {
 
 
         // Make database connection and fetch data
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
 
         // Get the current session's student ID
         String studentID = SessionHandler.getSession();
+        System.out.println(studentID);
         System.out.println(studentID);
 
         setGivenAndTakenLoanCountLabel();
@@ -236,6 +274,23 @@ public class ProfilePageFrame implements Initializable {
             userNameField.setText(student.getName() + "");
             numberOfCoinField.setText(findCoinNumberByStudentID(studentID) + "");
             balanceField.setText(account.getBalance() + "");
+
+            String imagePath = student.getProfile_picture();
+            System.out.println("Profile picture path: " + imagePath);
+
+            if (imagePath != null && !imagePath.isEmpty()) {
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    Image image = new Image(file.toURI().toString());
+                    profilePictureImageField.setImage(image);
+                } else {
+                    System.out.println("Profile picture file does not exist.");
+                }
+            } else {
+                System.out.println("Profile picture path is empty or null.");
+            }
+
+
             System.out.println(balanceField.getText());
             System.out.println(account.getBalance());
             System.out.println(account.getAccountID());
@@ -273,7 +328,7 @@ public class ProfilePageFrame implements Initializable {
     String fetchAnonymousIDByStudentID(String id) {
 
         System.out.println(id+" : ID");
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
 //        DataBaseManager.getStudentArrayList();
         System.out.println(DataBaseManager.getStudentArrayList());
@@ -292,12 +347,18 @@ public class ProfilePageFrame implements Initializable {
 
     public void returnMoney(ActionEvent actionEvent) {
     }
-
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 
 
     public void redemCoin(ActionEvent actionEvent) {
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
         Student currentStudent = null;
         // Fetching student from database;
@@ -323,32 +384,45 @@ public class ProfilePageFrame implements Initializable {
         if (selectedDirectory != null) {
             // Save the content to a text file
             try {
-                File file = new File(selectedDirectory, "redeem_coin.pdf");
+                File file = new File(selectedDirectory, "redeem_coin_"+SessionHandler.getSession()+".txt");
                 FileWriter writer = new FileWriter(file);
                 writer.write(content);
                 writer.close();
                 System.out.println("PDF saved successfully.");
+                updateCoinToDatabase( SessionHandler.getSession());
+
+
             } catch (IOException e) {
-                System.err.println("Error creating PDF: " + e.getMessage());
+                showAlert("Error","Error creating PDF: " + e.getMessage());
+                //System.err.println("Error creating PDF: " + e.getMessage());
             }
         } else {
+            showAlert("Error","No directory selected.");
+
             System.out.println("No directory selected.");
         }
     }
 
+    private void updateCoinToDatabase(String studentID) {
+        // Update Coin value to 0 for the given studentID
+        String updateQuery = "UPDATE Coin SET value = 0 WHERE studentID = '" + studentID + "'";
 
-    // Convert TextFlow to String
-    private String textFlowToString(TextFlow textFlow) {
-        StringBuilder sb = new StringBuilder();
-        for (Node node : textFlow.getChildren()) {
-            if (node instanceof Text) {
-                sb.append(((Text) node).getText());
-            }
+        // Make database connection
+        DataBaseManager.makeConnection();
+
+        // Execute the update query
+        boolean rowsAffected = DataBaseManager.executeUpdate(updateQuery);
+
+        if (rowsAffected) {
+            showAlert("Success","Redeem Successfull!");
+            System.out.println("Coin value updated successfully for student: " + studentID);
+        } else {
+            System.out.println("No rows were updated. Student ID might be incorrect.");
         }
-        return sb.toString();
     }
+
     private String getCoinByStudentID(String studentID) {
-        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
        // System.out.println(DataBaseManager.getCoinArrayList());
 
@@ -366,7 +440,7 @@ public class ProfilePageFrame implements Initializable {
 
 
     public void setGivenAndTakenLoanCountLabel() {
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
         int givenCounter = 0;
         int takenCounter = 0;
@@ -392,6 +466,35 @@ public class ProfilePageFrame implements Initializable {
         totalGivenField.setText(givenCounter + "");
         totalTakenField.setText(takenCounter + "");
 
+        updateGivenAndTakenLoanToCoinHistory(givenCounter,takenCounter);
+
+
+    }
+
+    private void updateGivenAndTakenLoanToCoinHistory(int givenCounter, int takenCounter) {
+
+        String studentID=SessionHandler.getSession();
+        // Update givenLoan and takenLoan values for the specified studentID
+        String query = "UPDATE CoinHistory SET givenLoan = " + givenCounter + ", takenLoan = " + takenCounter +
+                " WHERE studentID = '" + studentID + "'";
+
+        // Make database connection
+        DataBaseManager.makeConnection();
+
+        // Execute the update query
+        boolean rowsAffected = DataBaseManager.executeUpdate(query);
+
+        if (rowsAffected ==true) {
+            System.out.println("Coin history updated successfully for student: " + studentID);
+        } else {
+            System.out.println("No rows were updated. Student ID might be incorrect.");
+        }
+    }
+
+    public void cashInBkash(ActionEvent actionEvent) {
+        Stage currentStage = (Stage) logoutBtn.getScene().getWindow();
+
+        sceneBuilder.loadNewFrame("/BkashPaymentGatewayPage.fxml", "Bkash Gateway", currentStage);
 
     }
 }

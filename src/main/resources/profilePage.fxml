@@ -156,5 +156,10 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
+      <Button fx:id="cashInBkashBtn" alignment="CENTER" layoutX="20.0" layoutY="148.0" mnemonicParsing="false" onAction="#cashInBkash" prefHeight="36.0" prefWidth="138.0" style="-fx-background-color: #f20789; -fx-background-radius: 5;" text="Cash in from Bkash" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

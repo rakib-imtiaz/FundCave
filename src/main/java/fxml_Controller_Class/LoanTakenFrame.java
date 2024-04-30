@@ -18,9 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class LoanTakenFrame implements Initializable {
 
@@ -130,7 +128,7 @@ public class LoanTakenFrame implements Initializable {
 //    ---------------------------------------------------------------------------------------
     String fetchStudentIDByAnonymousID(String id)
     {
-        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
        // DataBaseManager.getStudentArrayList();
 

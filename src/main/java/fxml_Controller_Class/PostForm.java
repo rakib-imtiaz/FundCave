@@ -81,7 +81,7 @@ public class PostForm implements Initializable {
 
     String fetchAnonymousIDByStudentID(String studentID)
     {
-        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
         DataBaseManager.getStudentArrayList();
 
@@ -106,7 +106,7 @@ public class PostForm implements Initializable {
         }
 
         // Make database connection and execute SQL INSERT statement to add a new post
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         String postID = generateUniqueID();
         String userId = fetchAnonymousIDByStudentID(SessionHandler.getSession());
         // Format the current date into a string representation compatible with the database

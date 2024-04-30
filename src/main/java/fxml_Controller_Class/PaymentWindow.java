@@ -10,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mainClass.Account;
 import mainClass.Student;
@@ -127,7 +126,7 @@ public class PaymentWindow implements Initializable {
 
         //INSERT INTO Transaction (transactionID, senderID, receiverID, amount, loanSendingDate, loanExpireDate)
         // Make database connection and execute SQL INSERT statement to add a new student
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         String insertQuery = "INSERT INTO Transaction (transactionID, senderID, receiverID, amount, loanSendingDate, loanExpireDate)" +
                 "VALUES ('" + transactionID + "','" + senderID + "','" + reciverID + "','" + amount + "','" + loanSendingDate + "','" + loanExpireDate + "')";
 
@@ -152,7 +151,7 @@ public class PaymentWindow implements Initializable {
     }
 
     private String fetchPasswordByStudentID(String senderID) {
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
         for (Student student : DataBaseManager.getStudentArrayList()) {
             if (student.getStudentID().contentEquals(senderID)) {
@@ -171,7 +170,7 @@ public class PaymentWindow implements Initializable {
     }
     String fetchStudentIDByAnonymousID(String id)
     {
-        DataBaseManager.makeConnection("root","root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
         DataBaseManager.getStudentArrayList();
 
@@ -212,7 +211,7 @@ public class PaymentWindow implements Initializable {
     }
 
     private double getBalance(String studentID) {
-        DataBaseManager.makeConnection("root", "root");
+        DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
         for (Account account : DataBaseManager.getAccountArraylist()) {
             if (account.getStudentID().contentEquals(studentID)) {

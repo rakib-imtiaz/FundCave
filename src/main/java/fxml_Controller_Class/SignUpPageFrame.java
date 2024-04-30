@@ -66,7 +66,7 @@ public class SignUpPageFrame  implements Initializable {
 		}
 
 		// Make database connection and execute SQL INSERT statement to add a new student
-		DataBaseManager.makeConnection("root", "root");
+		DataBaseManager.makeConnection();
 		String insertQuery = "INSERT INTO Student (studentID, name, email, password, a_password, address) " +
 				"VALUES ('" + studentID + "','" + name + "','" + email + "','" + password + "','" + aPassword + "','" + address + "')";
 String insertQuery2 = "INSERT INTO Account (studentID, balance) " +

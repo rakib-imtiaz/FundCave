@@ -54,7 +54,7 @@ public class LoginPageFrame {
 		String password = passwordField.getText();
 
 		// Attempt to make a database connection
-		if (DataBaseManager.makeConnection("root", "root")) {
+		if (DataBaseManager.makeConnection()) {
 			// Construct the SQL query to fetch student data based on studentID and password
 			String sqlQuery = "SELECT * FROM Student WHERE studentID = '" + studentID + "' AND password = '" + password + "'";
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="" prefHeight="614.0" prefWidth="431.0" style="-fx-background-color: #f20789; -fx-background-radius: 0; -fx-border-radius: 0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml_Controller_Class.BkashPaymentGatewayFrame">
+    <children>
+        <Button fx:id="makePaymentBtn" alignment="CENTER" layoutX="82.0" layoutY="536.0" mnemonicParsing="false" onAction="#makePayment" opacity="0.71" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #94015c; -fx-background-radius: 8;" text="proceed" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Button>
+        <TextField fx:id="amountField" layoutX="96.0" layoutY="319.0" prefHeight="33.0" prefWidth="242.0" promptText="eg.  500" style="-fx-background-radius: 5;" />
+        <ImageView fitHeight="91.0" fitWidth="407.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true">
+            <image>
+                <Image url="@bkash_payment_logo.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="96.0" layoutY="293.0" prefHeight="16.0" prefWidth="71.0" text="Amount" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+        <TextField fx:id="passwordField" layoutX="97.0" layoutY="401.0" prefHeight="33.0" prefWidth="242.0" promptText="password" style="-fx-background-radius: 5;" />
+        <Label layoutX="97.0" layoutY="372.0" prefHeight="16.0" prefWidth="77.0" text="Password" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+        <Button fx:id="goBackBtn" alignment="CENTER" layoutX="230.0" layoutY="536.0" mnemonicParsing="false" onAction="#goBack" opacity="0.71" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #94015c; -fx-background-radius: 8;" text="close" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Button>
+      <TextField fx:id="studentDetailsLabel" editable="false" layoutX="52.0" layoutY="149.0" prefHeight="137.0" prefWidth="324.0" promptText="Student Details" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 15;" />
+      <TextField fx:id="phoneNumberField" layoutX="96.0" layoutY="469.0" prefHeight="33.0" prefWidth="242.0" promptText="eg.+8801********" style="-fx-background-radius: 5;" />
+      <Label layoutX="97.0" layoutY="446.0" prefHeight="16.0" prefWidth="114.0" text="Bkash Number" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+    </children>
+   <effect>
+      <Blend />
+   </effect>
+</AnchorPane>
