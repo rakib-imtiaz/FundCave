@@ -22,12 +22,12 @@ public class Main extends Application implements Initializable {
 
 		DataBaseManager.makeConnection();
 		DataBaseManager.fetchDataFromDatabase();
-		SessionHandler.setSession("S001");
+//		SessionHandler.setSession("S001");
 		//System.out.println(SessionHandler.getSession());
 		//System.out.println(SessionHandler.getStudentID());
 
-//		Parent root = FXMLLoader.load(getClass().getResource("/Homepage.fxml"));
-		Parent root = FXMLLoader.load(getClass().getResource("/profilePage.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/Homepage.fxml"));
+//		Parent root = FXMLLoader.load(getClass().getResource("/profilePage.fxml"));
 
 		Scene scene = new Scene(root);
 
@@ -39,7 +39,7 @@ public class Main extends Application implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		SessionHandler.setSession("S001");
+//		SessionHandler.setSession("S001");
 
 
 	}

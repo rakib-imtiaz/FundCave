@@ -1,5 +1,6 @@
 package fxml_Controller_Class;
 
+import application.CoinBusinessLogic;
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
 import application.SessionHandler;
@@ -135,8 +136,11 @@ public class PaymentWindow implements Initializable {
         DataBaseManager.closeConnection();
 
         if (success) {
-            showAlert("Success", "Registration successful.");
+            showAlert("Success", "Payment successful.");
             updateBalances(amount, senderID, reciverID);
+            // updating the coin businesslogic
+            CoinBusinessLogic.updateCoin(SessionHandler.getSession(),amount);
+
             SessionHandler.setCurrentLoanRecieversID(null);
 
 
