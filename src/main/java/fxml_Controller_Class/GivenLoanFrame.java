@@ -10,9 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import mainClass.Transaction;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +32,7 @@ public class GivenLoanFrame implements Initializable {
     void goBack(ActionEvent event) {
         Stage currentStage = (Stage) goBackBtn.getScene().getWindow();
 
-        sceneBuilder.loadNewFrame("/profilePage.fxml", "Profile Page",currentStage);
+        sceneBuilder.loadNewFrame("/profilePage.fxml", "Profile Page", currentStage);
 
 
     }
@@ -107,24 +109,50 @@ public class GivenLoanFrame implements Initializable {
         transactionsList.addAll(filteredTransactionList);
     }
 
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     private void writeTransactionDetailsToFile(Transaction transaction) {
-        try {
-            // Open a FileWriter to write to a text file (replace "transaction_details.txt" with your desired file path)
-            FileWriter writer = new FileWriter("transaction_details.txt", true);
-            // Write transaction details to the file
-            writer.write("Transaction ID: " + transaction.getTransactionID() + "\n");
-            writer.write("Sender ID: " + transaction.getSenderID() + "\n");
-            writer.write("Receiver ID: " + transaction.getReceiverID() + "\n");
-            writer.write("Amount: " + transaction.getAmount() + "\n");
-            writer.write("Load Sending Date: " + transaction.getLoadSendingDate() + "\n");
-            writer.write("Loan Expire Date: " + transaction.getLoanExpireDate() + "\n");
-            // Write a newline to separate transactions
-            writer.write("\n");
-            // Close the FileWriter
-            writer.close();
-            System.out.println("Transaction details saved to transaction_details.txt");
-        } catch (IOException e) {
-            System.err.println("Error writing transaction details to file: " + e.getMessage());
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Select Folder to Save PDF");
+        File selectedDirectory = directoryChooser.showDialog(null);
+
+        if (selectedDirectory != null) {
+            // Save the content to a text file
+            try {
+                File file = new File(selectedDirectory, "transaction_details_" + transaction.getTransactionID() + ".txt");
+                FileWriter writer = new FileWriter(file);
+
+                writer.write("Transaction ID: " + transaction.getTransactionID() + "\n");
+                writer.write("Sender ID: " + transaction.getSenderID() + "\n");
+                writer.write("Receiver ID: " + transaction.getReceiverID() + "\n");
+                writer.write("Amount: " + transaction.getAmount() + "\n");
+                writer.write("Load Sending Date: " + transaction.getLoadSendingDate() + "\n");
+                writer.write("Loan Expire Date: " + transaction.getLoanExpireDate() + "\n");
+                // Write a newline to separate transactions
+                writer.write("\n");
+                // Close the FileWriter
+                writer.close();
+
+                writer.close();
+                System.out.println("PDF saved successfully.");
+
+
+            } catch (IOException e) {
+                showAlert("Error", "Error creating PDF: " + e.getMessage());
+                //System.err.println("Error creating PDF: " + e.getMessage());
+            }
+        } else {
+            showAlert("Error", "No directory selected.");
+
+            System.out.println("No directory selected.");
         }
+
     }
 }

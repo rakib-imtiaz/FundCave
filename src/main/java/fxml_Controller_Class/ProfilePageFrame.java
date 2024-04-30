@@ -6,7 +6,10 @@ import application.SessionHandler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,12 +27,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
 public class ProfilePageFrame implements Initializable {
     private final SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
     public Button cashInBkashBtn;
+    public Label anonymousIdField;
 
     @FXML
     private Label balanceField;
@@ -215,7 +220,7 @@ public class ProfilePageFrame implements Initializable {
         // Execute the update query with the image file path and student ID as parameters
         boolean rowsAffected = DataBaseManager.executeUpdate(query);
 
-        if (rowsAffected== true) {
+        if (rowsAffected == true) {
             System.out.println("Profile picture updated successfully for student: " + studentID);
         } else {
             System.out.println("No rows were updated. Student ID might be incorrect.");
@@ -274,6 +279,7 @@ public class ProfilePageFrame implements Initializable {
             userNameField.setText(student.getName() + "");
             numberOfCoinField.setText(findCoinNumberByStudentID(studentID) + "");
             balanceField.setText(account.getBalance() + "");
+            anonymousIdField.setText(student.getA_password());
 
             String imagePath = student.getProfile_picture();
             System.out.println("Profile picture path: " + imagePath);
@@ -297,18 +303,7 @@ public class ProfilePageFrame implements Initializable {
 
             Review tempReviewObject = findReviewByID(studentID);
 
-//            if(tempReviewObject==null){
-////                averageReviewField.setText("0");
-////                totalReviewField.setText("0");
 //
-//            }
-//            else{
-//                int totalreview=tempReviewObject.getReview().size();
-//
-//
-////                averageReviewField.setText(calculateAverageReview(tempReviewObject)+"");
-////                totalReviewField.setText(totalreview+"");
-//            }
 
 
         }
@@ -327,7 +322,7 @@ public class ProfilePageFrame implements Initializable {
 
     String fetchAnonymousIDByStudentID(String id) {
 
-        System.out.println(id+" : ID");
+        System.out.println(id + " : ID");
         DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
 //        DataBaseManager.getStudentArrayList();
@@ -336,9 +331,9 @@ public class ProfilePageFrame implements Initializable {
         for (Student student : DataBaseManager.getStudentArrayList()) {
             //if (student.getA_password() != null) {
 
-                if (student.getStudentID() != null&& student.getStudentID().contentEquals(id)) {
-                    return student.getA_password();
-               // }
+            if (student.getStudentID() != null && student.getStudentID().contentEquals(id)) {
+                return student.getA_password();
+                // }
             }
         }
         return null;
@@ -346,7 +341,36 @@ public class ProfilePageFrame implements Initializable {
     }
 
     public void returnMoney(ActionEvent actionEvent) {
+        DataBaseManager.makeConnection();
+        DataBaseManager.fetchDataFromDatabase();
+        ArrayList<Transaction> fetchedTransactionList = DataBaseManager.getTransactionArrayList();
+        ArrayList<Transaction> borrowedList = new ArrayList<>();
+        String anonyID = fetchAnonymousIDByStudentID(SessionHandler.getSession());
+
+        for (Transaction transaction : fetchedTransactionList) {
+            if (transaction.getReceiverID().contentEquals(anonyID)) {
+                borrowedList.add(transaction);
+            }
+        }
+
+        String borrowedListContent = "";
+        for (Transaction transaction : borrowedList) {
+            String content = "Transaction ID:" + transaction.getTransactionID() + "\tSender ID: " + transaction.getSenderID() + "\tGiven Amount: " + transaction.getAmount() +
+                    "\tLoan ExpireDate: " + transaction.getLoanExpireDate() + "\tLoan Sending Date: " + transaction.getLoadSendingDate() + "\n";
+            borrowedListContent += content;
+
+
+        }
+
+        SessionHandler.setBorrowedDetails(borrowedListContent);
+
+        Stage currentStage = (Stage) returnMoneyBtn.getScene().getWindow();
+
+        sceneBuilder.loadNewFrame("/ReturnGivenMoneypage.fxml", "Return you Borrowed Money", currentStage);
+
+
     }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -354,7 +378,6 @@ public class ProfilePageFrame implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 
 
     public void redemCoin(ActionEvent actionEvent) {
@@ -384,20 +407,20 @@ public class ProfilePageFrame implements Initializable {
         if (selectedDirectory != null) {
             // Save the content to a text file
             try {
-                File file = new File(selectedDirectory, "redeem_coin_"+SessionHandler.getSession()+".txt");
+                File file = new File(selectedDirectory, "redeem_coin_" + SessionHandler.getSession() + ".txt");
                 FileWriter writer = new FileWriter(file);
                 writer.write(content);
                 writer.close();
                 System.out.println("PDF saved successfully.");
-                updateCoinToDatabase( SessionHandler.getSession());
+                updateCoinToDatabase(SessionHandler.getSession());
 
 
             } catch (IOException e) {
-                showAlert("Error","Error creating PDF: " + e.getMessage());
+                showAlert("Error", "Error creating PDF: " + e.getMessage());
                 //System.err.println("Error creating PDF: " + e.getMessage());
             }
         } else {
-            showAlert("Error","No directory selected.");
+            showAlert("Error", "No directory selected.");
 
             System.out.println("No directory selected.");
         }
@@ -414,7 +437,7 @@ public class ProfilePageFrame implements Initializable {
         boolean rowsAffected = DataBaseManager.executeUpdate(updateQuery);
 
         if (rowsAffected) {
-            showAlert("Success","Redeem Successfull!");
+            showAlert("Success", "Redeem Successfull!");
             System.out.println("Coin value updated successfully for student: " + studentID);
         } else {
             System.out.println("No rows were updated. Student ID might be incorrect.");
@@ -424,15 +447,13 @@ public class ProfilePageFrame implements Initializable {
     private String getCoinByStudentID(String studentID) {
         DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
-       // System.out.println(DataBaseManager.getCoinArrayList());
+        // System.out.println(DataBaseManager.getCoinArrayList());
 
-        for(Coin coin:DataBaseManager.getCoinArrayList())
-        {
-            System.out.println(coin.getStudentID()+","+studentID);
-            if(coin.getStudentID().contentEquals(studentID))
-            {
+        for (Coin coin : DataBaseManager.getCoinArrayList()) {
+            System.out.println(coin.getStudentID() + "," + studentID);
+            if (coin.getStudentID().contentEquals(studentID)) {
 
-                return coin.getValue()+"";
+                return coin.getValue() + "";
             }
         }
         return null;
@@ -466,14 +487,14 @@ public class ProfilePageFrame implements Initializable {
         totalGivenField.setText(givenCounter + "");
         totalTakenField.setText(takenCounter + "");
 
-        updateGivenAndTakenLoanToCoinHistory(givenCounter,takenCounter);
+        updateGivenAndTakenLoanToCoinHistory(givenCounter, takenCounter);
 
 
     }
 
     private void updateGivenAndTakenLoanToCoinHistory(int givenCounter, int takenCounter) {
 
-        String studentID=SessionHandler.getSession();
+        String studentID = SessionHandler.getSession();
         // Update givenLoan and takenLoan values for the specified studentID
         String query = "UPDATE CoinHistory SET givenLoan = " + givenCounter + ", takenLoan = " + takenCounter +
                 " WHERE studentID = '" + studentID + "'";
@@ -484,7 +505,7 @@ public class ProfilePageFrame implements Initializable {
         // Execute the update query
         boolean rowsAffected = DataBaseManager.executeUpdate(query);
 
-        if (rowsAffected ==true) {
+        if (rowsAffected == true) {
             System.out.println("Coin history updated successfully for student: " + studentID);
         } else {
             System.out.println("No rows were updated. Student ID might be incorrect.");

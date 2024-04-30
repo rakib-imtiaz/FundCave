@@ -30,7 +30,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="87.0" prefHeight="16.0" prefWidth="110.0" text="TOTAL COINS:">
+      <Label layoutX="41.0" layoutY="87.0" prefHeight="16.0" prefWidth="110.0" text="TOTAL COINS:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -50,7 +50,7 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
-      <Label fx:id="userNameField" layoutX="304.0" layoutY="263.0" prefHeight="16.0" prefWidth="119.0" text="user 1">
+      <Label fx:id="userNameField" layoutX="329.0" layoutY="265.0" prefHeight="16.0" prefWidth="151.0" text="user 1">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -60,7 +60,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="userIdField" layoutX="304.0" layoutY="289.0" prefHeight="16.0" prefWidth="119.0" text="18123456">
+      <Label fx:id="userIdField" layoutX="329.0" layoutY="291.0" prefHeight="16.0" prefWidth="174.0" text="18123456">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -76,12 +76,12 @@
             <Font name="System Bold" size="10.0" />
          </font>
       </Button>
-      <Label fx:id="numberOfCoinField" layoutX="137.0" layoutY="87.0" prefHeight="16.0" prefWidth="61.0" text="100">
+      <Label fx:id="numberOfCoinField" layoutX="153.0" layoutY="87.0" prefHeight="16.0" prefWidth="131.0" text="100">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <ImageView fitHeight="20.0" fitWidth="22.0" layoutX="189.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="20.0" fitWidth="22.0" layoutX="10.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@coin.png" />
          </image>
@@ -123,12 +123,12 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
-      <Label fx:id="balanceField" layoutX="137.0" layoutY="112.0" prefHeight="16.0" prefWidth="53.0" text="0">
+      <Label fx:id="balanceField" layoutX="137.0" layoutY="112.0" prefHeight="16.0" prefWidth="96.0" text="0">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="25.0" layoutY="112.0" prefHeight="16.0" prefWidth="78.0" text="Balance:">
+      <Label layoutX="41.0" layoutY="112.0" prefHeight="16.0" prefWidth="78.0" text="Balance:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -161,5 +161,15 @@
             <Font name="System Bold" size="11.0" />
          </font>
       </Button>
+      <Label layoutX="190.0" layoutY="311.0" prefHeight="16.0" prefWidth="110.0" text="AnonymousID:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="anonymousIdField" layoutX="329.0" layoutY="313.0" prefHeight="16.0" prefWidth="174.0" text="18123456">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

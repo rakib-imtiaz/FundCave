@@ -71,13 +71,17 @@ public class SignUpPageFrame  implements Initializable {
 				"VALUES ('" + studentID + "','" + name + "','" + email + "','" + password + "','" + aPassword + "','" + address + "')";
 String insertQuery2 = "INSERT INTO Account (studentID, balance) " +
 				"VALUES ('" + studentID + "','" + 1000+ "')";
+String insertQuery3 = "INSERT INTO Coin (value, studentID) " +
+				"VALUES ('" + 0 + "','" + studentID+ "')";
+		System.out.println(insertQuery3);
 
 		System.out.println(insertQuery);
         boolean success = DataBaseManager.executeUpdate(insertQuery);
         boolean success2 = DataBaseManager.executeUpdate(insertQuery2);
+        boolean success3 = DataBaseManager.executeUpdate(insertQuery3);
 		DataBaseManager.closeConnection();
 
-		if (success && success2) {
+		if (success && success2 && success3) {
 			showAlert("Success", "Registration successful.");
 			clearFields();
 

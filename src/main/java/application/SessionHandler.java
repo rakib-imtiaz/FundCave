@@ -3,6 +3,15 @@ package application;
 public class SessionHandler {
    public static String studentID;
    public static String currentLoanRecieversID;
+   public static String borrowedDetails;
+
+    public static String getBorrowedDetails() {
+        return borrowedDetails;
+    }
+
+    public static void setBorrowedDetails(String borrowedDetails) {
+        SessionHandler.borrowedDetails = borrowedDetails;
+    }
 
     public static String getStudentID() {
         return studentID;
