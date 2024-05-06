@@ -1,5 +1,6 @@
 package controller;
 
+import application.SceneBuildingHelper;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,6 +24,8 @@ import server.Server;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ServerFormController {
     public VBox vBox;
@@ -31,6 +34,8 @@ public class ServerFormController {
 
     private Server server;
     private static VBox staticVBox;
+
+    private final SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
 
     public void initialize(){
         staticVBox = vBox;
@@ -117,10 +122,25 @@ public class ServerFormController {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,"something went wrong. can't add client").show();
         }
-        stage.setTitle("NutraHealthChat");
+        stage.setTitle("Client");
         stage.centerOnScreen();
         stage.setResizable(false);
         stage.show();
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    Stage currentStage = (Stage) pane.getScene().getWindow();
+                    SceneBuildingHelper sceneBuilder = new SceneBuildingHelper();
+                    sceneBuilder.loadNewFrame("/profilePage.fxml", "Loan", currentStage);
+                });
+            }
+        }, 3 * 60 * 1000); // 20 seconds in milliseconds
     }
 
-}
+    }
+    // Add the following code snippet here
+
+

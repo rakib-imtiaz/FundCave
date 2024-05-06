@@ -13,11 +13,16 @@ import java.util.ResourceBundle;
 public class Main extends Application implements Initializable {
 
 	public static void main(String[] args) {
+//		server.ServerLauncher.main(new String[]{});
+
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+
+
+
 
 
 		DataBaseManager.makeConnection();

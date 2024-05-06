@@ -1,6 +1,5 @@
 package fxml_Controller_Class;
 
-import Chat.ChatApplication;
 import application.DataBaseManager;
 import application.SceneBuildingHelper;
 import application.SessionHandler;
@@ -15,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import mainClass.Post;
+import server.ServerLauncher;
 
 import java.net.URL;
 import java.util.Date;
@@ -50,12 +50,14 @@ public class PostedLoanRequestsFrame implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        communicate.setCellFactory(param -> new ButtonCell((Stage) tableView.getScene().getWindow()));
+
         a_id_column.setCellValueFactory(new PropertyValueFactory<>("userID"));
         postColumn.setCellValueFactory(new PropertyValueFactory<>("content"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         // Set up the Communicate column with a button to start a chat
-        communicate.setCellFactory(param -> new ButtonCell());
+        communicate.setCellFactory(param -> new ButtonCell((Stage) tableView.getScene().getWindow()));
         DataBaseManager.makeConnection();
         DataBaseManager.fetchDataFromDatabase();
 
@@ -71,11 +73,23 @@ public class PostedLoanRequestsFrame implements Initializable {
         final Button communicateButton = new Button("Start Chat");
         final Button giveLoanButton = new Button("Give Loan");
 
-        ButtonCell() {
+        ButtonCell(Stage window) {
             communicateButton.setOnAction(event -> {
                 String userID = getTableView().getItems().get(getIndex()).getUserID();
                 openChatWindow(userID);
                 System.out.println("Start Chat with user ID: " + userID);
+//                server.ServerLauncher.main(new String[]{});
+
+                Stage currentStage = (Stage) communicateButton.getScene().getWindow();
+
+                sceneBuilder.loadNewFrame("../view/ServerForm.fxml", "Loan",currentStage);
+
+
+//                ServerLauncher serverLauncher = new ServerLauncher();
+//                serverLauncher.launch(new String[]{});
+
+
+
             });
 
             giveLoanButton.setOnAction(event -> {
@@ -86,10 +100,9 @@ public class PostedLoanRequestsFrame implements Initializable {
         }
 
         private void openChatWindow(String userID) {
-            // Create and show the chat window
-            ChatApplication chatApp = new ChatApplication();
-            chatApp.startChatWithUserID(userID); // Assuming you have a method in ChatApplication to start a chat with a specific user ID
-        }
+
+
+         }
 
         private void giveLoan(String anonymousUserID) {
             SessionHandler.setCurrentLoanRecieversID(anonymousUserID);
