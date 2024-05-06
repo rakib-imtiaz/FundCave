@@ -60,5 +60,10 @@
             <Image url="@logo_transparent.png" />
          </image>
       </ImageView>
+      <Button fx:id="adminBtn" alignment="CENTER" layoutX="255.0" layoutY="25.0" mnemonicParsing="false" onAction="#adminlogin" prefHeight="36.0" prefWidth="98.0" style="-fx-background-color: #e8ded5;" text="Admin">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

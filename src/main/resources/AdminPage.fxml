@@ -2,64 +2,44 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="534.0" prefWidth="610.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml_Controller_Class.SignUpPageFrame">
+<VBox prefHeight="361.0" prefWidth="1109.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml_Controller_Class.AdminPageFrame">
    <children>
-      <Button fx:id="registerBtn" alignment="CENTER" layoutX="206.0" layoutY="405.0" mnemonicParsing="false" onAction="#register" prefHeight="33.0" prefWidth="154.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Register" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Button>
-      <TextField fx:id="studentNameField" layoutX="41.0" layoutY="162.0" prefHeight="33.0" prefWidth="242.0" promptText="Student Name" style="-fx-background-radius: 5;" />
-      <ImageView fitHeight="126.0" fitWidth="166.0" layoutX="242.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@logo_transparent.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="41.0" layoutY="136.0" prefHeight="16.0" prefWidth="53.0" text="Name">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="universityEmailField" layoutX="41.0" layoutY="238.0" prefHeight="33.0" prefWidth="242.0" promptText="Student University Email" style="-fx-background-radius: 5;" />
-      <Label layoutX="41.0" layoutY="212.0" prefHeight="16.0" prefWidth="53.0" text="Email">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="passwordField" layoutX="41.0" layoutY="313.0" prefHeight="33.0" prefWidth="242.0" promptText="password" style="-fx-background-radius: 5;" />
-      <Label layoutX="41.0" layoutY="287.0" prefHeight="16.0" prefWidth="77.0" text="Password">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="studentIDField" layoutX="327.0" layoutY="164.0" prefHeight="33.0" prefWidth="242.0" promptText="student ID" style="-fx-background-radius: 5;" />
-      <Label layoutX="327.0" layoutY="136.0" prefHeight="16.0" prefWidth="90.0" text="Student ID">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="anonymousPasswordField" layoutX="327.0" layoutY="240.0" prefHeight="33.0" prefWidth="242.0" promptText="a_password" style="-fx-background-radius: 5;" />
-      <Label layoutX="327.0" layoutY="214.0" prefHeight="16.0" prefWidth="169.0" text="Anonymous Password">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <TextField fx:id="addressField" layoutX="327.0" layoutY="315.0" prefHeight="33.0" prefWidth="242.0" promptText="address" style="-fx-background-radius: 5;" />
-      <Label layoutX="327.0" layoutY="289.0" prefHeight="16.0" prefWidth="65.0" text="Address">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <Button fx:id="goBackBtn" alignment="CENTER" layoutX="206.0" layoutY="463.0" mnemonicParsing="false" onAction="#goBack" prefHeight="33.0" prefWidth="154.0" style="-fx-background-color: orange; -fx-background-radius: 10;" text="Go Back" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Button>
+      <ScrollPane fitToWidth="true" prefHeight="281.0" prefWidth="1203.0">
+         <content>
+            <TableView fx:id="tableView" prefHeight="466.0" prefWidth="1237.0">
+               <columns>
+                   <TableColumn fx:id="studentIDColumn" prefWidth="100.0" text="Student ID" />
+                   <TableColumn fx:id="anonymousIDColumn" prefWidth="100.0" text="anonymous ID" />
+        <TableColumn fx:id="nameColumn" prefWidth="160.0" text="Name" />
+        <TableColumn fx:id="emailColumn" prefWidth="216.0" text="Email" />
+        <TableColumn fx:id="passwordColumn" prefWidth="124.0" text="Password" />
+        <TableColumn fx:id="addressColumn" prefWidth="242.0" text="Address" />
+        <TableColumn fx:id="coinColumn" prefWidth="112.0" text="Coin" />
+        <TableColumn fx:id="balanceColumn" prefWidth="138.0" text="Balance" />
+    </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <AnchorPane prefHeight="102.0" prefWidth="1166.0">
+         <children>
+            <Button fx:id="goBackBtn" layoutX="974.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: orange;" text="Go Back" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Label layoutX="450.0" layoutY="35.0" text="All User Details" textFill="#10d38f">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</VBox>
